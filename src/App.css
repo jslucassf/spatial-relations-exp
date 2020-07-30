@@ -5,6 +5,7 @@
 .leaflet-container{
   flex: 5;
   height: 100vh;
+  cursor: auto;
 }
 
 aside{
