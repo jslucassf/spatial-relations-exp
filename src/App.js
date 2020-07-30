@@ -6,7 +6,6 @@ function App() {
   const [centralPoint, setCentralPoint] = useState([-7.2281, -35.8739]);
   const [pointsArray, setPointsArray] = useState([]);
   const [zoom, setZoom] = useState(18);
-  const [clickPosition, setClickPosition] = useState();
   const [isCircleEvent, setIsCircleEvent] = useState(false);
 
   useEffect(() => {
@@ -60,6 +59,12 @@ function App() {
             >
           </Polygon>
         }
+
+        <button  className="reset" onClick={() => {
+            setPointsArray([]);
+          }}>
+            Resetar
+        </button>                
       </Map>
 
      <aside>
