@@ -52,7 +52,14 @@ function App() {
         }
         </ul>
 
-        
+        {
+          (pointsArray.length > 1) &&
+          <Polygon 
+            positions={pointsArray.map(point => [point.lat, point.lng])}
+            color="#ef5350"
+            >
+          </Polygon>
+        }
       </Map>
 
      <aside>
