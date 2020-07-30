@@ -7,9 +7,19 @@ function App() {
   const [pointsArray, setPointsArray] = useState([]);
   const [zoom, setZoom] = useState(18);
   const [isCircleEvent, setIsCircleEvent] = useState(false);
+  const [wkt, setWkt] = useState("");
 
   useEffect(() => {
-    console.log(pointsArray);
+    if(pointsArray.length === 1){
+      setWkt(`POINT(${pointsArray[0].lat} ${pointsArray[0].lng})`);
+    }else if(pointsArray.length === 2){
+      setWkt(`LINESTRING(${pointsArray[0].lat} ${pointsArray[0].lng}, ${pointsArray[1].lat} ${pointsArray[1].lng})`);
+    }else if(pointsArray.length > 2){
+      let newWkt = "POLYGON(";
+
+      pointsArray.map(point => newWkt += `${point.lat} ${point.lng},`);
+      setWkt(newWkt.replace(/.$/,")"));
+    }
   }, [pointsArray])
 
   const handleClick = (event) => {
@@ -70,7 +80,8 @@ function App() {
      <aside>
       <form>
         <label htmlFor='wktTextField'><h2>WKT Representation of the Polygon</h2></label>
-        <textarea id='wktTextField' rows='20' placeholder='Click on the map to start drawing your polygon'></textarea>
+        <textarea id='wktTextField' rows='20' placeholder='Click on the map to start drawing your polygon' value={wkt} readOnly>
+        </textarea>
       </form>
      </aside>
     </div>
