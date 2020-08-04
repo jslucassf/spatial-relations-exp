@@ -37,9 +37,9 @@ function App() {
     }else if(pointsArray.length > 1){
       newWkt = "MULTIPOLYGON(";
       pointsArray.map(polygon => {
-        newWkt += "(";
+        newWkt += "((";
         polygon.map(point => newWkt += `${point.lat} ${point.lng},`);
-        newWkt = newWkt.replace(/.$/,"),");
+        newWkt = newWkt.replace(/.$/,")),");
       });
       newWkt = newWkt.replace(/.$/,")");
       setWkt(newWkt);
