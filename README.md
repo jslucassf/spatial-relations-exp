@@ -7,6 +7,7 @@ This tool currently supports the following vector geometries:
 - [x] POINT
 - [x] LINESTRING
 - [x] POLYGON
+- [x] MULTIPOLYGON
 
 # Install
 
