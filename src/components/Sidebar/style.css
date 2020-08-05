@@ -1,0 +1,9 @@
+aside{
+    flex: 1;
+    padding: 2%;
+  }
+  
+aside textarea{
+    margin-top: 20px;
+    width: 100%;
+}
