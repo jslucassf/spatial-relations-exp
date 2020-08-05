@@ -81,7 +81,7 @@ function MapComp( { mapOptions, points, polygon } ){
               setPointsArray([[]]);
               setCurrentPolygon(0);
           }}>
-              Reset
+              Resetar Relação
           </button>                
       </Map>        
     );
