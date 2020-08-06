@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Map, CircleMarker, Polyline, TileLayer } from 'react-leaflet';
+import { Map, CircleMarker, Polyline, TileLayer, GeoJSON } from 'react-leaflet';
 import './style.css';
 
-function MapComp( { mapOptions, points, polygon } ){
+function MapComp( { mapOptions, points, polygon, landmark } ){
   const [isCircleEvent, setIsCircleEvent] = useState(false);
   const {pointsArray, setPointsArray} = points;
   const {currentPolygon, setCurrentPolygon} = polygon;
@@ -36,6 +36,10 @@ function MapComp( { mapOptions, points, polygon } ){
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           />
+
+          { landmark &&
+          <GeoJSON key={landmark.id} data={landmark}/>
+          }
           <ul>
           {
           pointsArray.map(polygon =>
@@ -75,14 +79,7 @@ function MapComp( { mapOptions, points, polygon } ){
               )
           )
           }
-          </ul>
-
-          <button  className="reset" onClick={() => {
-              setPointsArray([[]]);
-              setCurrentPolygon(0);
-          }}>
-              Resetar Relação
-          </button>                
+          </ul>           
       </Map>        
     );
 }

@@ -3,11 +3,33 @@ import { Map, CircleMarker, Polyline, TileLayer } from 'react-leaflet'
 import './App.css';
 import MapComp from './components/MapComp';
 import Sidebar from './components/Sidebar';
+import data from './data/landmarks.json';
 
 function App() {
+  const [centralPoint, setCentralPoint] = useState([ -7.2238664, -35.8793534 ]);
   const [pointsArray, setPointsArray] = useState([[]]);
   const [isCircleEvent, setIsCircleEvent] = useState(false);
   const [currentPolygon, setCurrentPolygon] = useState(0);
+  const [landmarks] = useState(data);
+  const [currentLandmark, setCurrentLandmark] = useState(0);
+  const [spatialRelations] = useState([
+    "NA RUA - PERTO DE",
+    "NA FRENTE DE",
+    "À DIREITA DE",
+    "AO LADO DE",
+    "ENTRE"
+  ]);
+  const [currentSR, setCurrentSR] = useState(0);
+
+  useEffect(() => {
+    /*if(landmarks[currentLandmark].geometry.type === 'Point'){
+      setCentralPoint(landmarks[currentLandmark].geometry.coordinates.reverse())
+    }else{
+      setCentralPoint(landmarks[2].geometry.coordinates[0][0][0].reverse());
+    }*/
+    setCentralPoint(landmarks[currentLandmark].properties.center.slice().reverse());
+    console.log(centralPoint);
+  }, [currentLandmark]);
 
   const handleClick = (event) => {
     if(!isCircleEvent){
@@ -26,14 +48,21 @@ function App() {
     <div className='container'>
       <MapComp 
       mapOptions = {{
-        center:[-7.2281, -35.8739],
-        zoom:18.5
+        center: centralPoint,//[-7.2281, -35.8739],
+        zoom:19.4
       }} 
       points= {{pointsArray,setPointsArray}}
-      polygon={{currentPolygon, setCurrentPolygon}}>
+      polygon={{currentPolygon, setCurrentPolygon}}
+      landmark={landmarks[currentLandmark]}>
       </MapComp>
 
-      <Sidebar pointsArray={pointsArray}>
+      <Sidebar points={{pointsArray, setPointsArray}}
+              setCurrentPolygon={setCurrentPolygon}
+              landmark={{currentLandmark, setCurrentLandmark, 
+                        landmarkName: landmarks[currentLandmark].properties.name,
+                        landmarkRef: landmarks[currentLandmark].properties.ref}}
+              relations={{spatialRelations, currentSR, setCurrentSR}}
+              >
       </Sidebar>
     </div>
      
