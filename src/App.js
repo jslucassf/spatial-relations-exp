@@ -22,13 +22,7 @@ function App() {
   const [currentSR, setCurrentSR] = useState(0);
 
   useEffect(() => {
-    /*if(landmarks[currentLandmark].geometry.type === 'Point'){
-      setCentralPoint(landmarks[currentLandmark].geometry.coordinates.reverse())
-    }else{
-      setCentralPoint(landmarks[2].geometry.coordinates[0][0][0].reverse());
-    }*/
     setCentralPoint(landmarks[currentLandmark].properties.center.slice().reverse());
-    console.log(centralPoint);
   }, [currentLandmark]);
 
   const handleClick = (event) => {

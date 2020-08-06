@@ -33,7 +33,7 @@ aside textarea{
 
 .reset:active {
 	position:relative;
-  top: 1px;
+ 	top: 1px;
 }
 
 .reset:hover {

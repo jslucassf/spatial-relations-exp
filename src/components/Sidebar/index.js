@@ -42,7 +42,7 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
 
             <div className="controlButtons">
                 <button className="btn reset" onClick={reset}>
-                    Reiniciar Desenho
+                    Limpar Desenho
                 </button>
 
                 <button className="btn next" onClick={() => {

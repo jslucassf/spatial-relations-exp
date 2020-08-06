@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Map, CircleMarker, Polyline, TileLayer, GeoJSON } from 'react-leaflet';
+import L from 'leaflet';
 import './style.css';
 
 function MapComp( { mapOptions, points, polygon, landmark } ){
   const [isCircleEvent, setIsCircleEvent] = useState(false);
   const {pointsArray, setPointsArray} = points;
   const {currentPolygon, setCurrentPolygon} = polygon;
+  const btnRef = useRef(null);
+  
+  useEffect(() => {
+    if(btnRef.current) L.DomEvent.disableClickPropagation(btnRef.current);
+  });
 
   const handleClick = (event) => {
       if(!isCircleEvent){
@@ -79,7 +85,13 @@ function MapComp( { mapOptions, points, polygon, landmark } ){
               )
           )
           }
-          </ul>           
+          </ul>          
+
+          <button ref={btnRef} className="btn new-geom" onClick={(e) => {
+            if(pointsArray[currentPolygon]) setCurrentPolygon(currentPolygon + 1);
+          }}>
+              Adicionar Outro Desenho
+          </button> 
       </Map>        
     );
 }
