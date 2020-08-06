@@ -12,6 +12,11 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
         setWkt(geomToWKT(pointsArray));
     }, [pointsArray]);
 
+    const reset = () => {
+        setPointsArray([[]]);
+        setCurrentPolygon(0);
+    }
+
     return (
         <aside>
             <form>
@@ -36,10 +41,7 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
             </p>
 
             <div className="controlButtons">
-                <button className="btn reset" onClick={() => {
-                    setPointsArray([[]]);
-                    setCurrentPolygon(0);
-                }}>
+                <button className="btn reset" onClick={reset}>
                     Reiniciar Desenho
                 </button>
 
@@ -50,6 +52,7 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
                         setCurrentLandmark(0);
                         setCurrentSR(currentSR + 1);
                     }
+                    reset();
                 }} disabled={currentLandmark===3 && currentSR===4}>
                     Próxima
                 </button> 
