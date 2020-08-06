@@ -9,8 +9,9 @@ aside textarea{
 }
 
 .controlButtons {
-  flex: 2;
-  align-content: flex-end;
+	display: flex;
+	justify-content: space-between;
+  	align-content: flex-end;
 }
 
 .reset{
@@ -65,4 +66,8 @@ aside textarea{
 .next:active {
 	position:relative;
 	top:1px;
+}
+
+.text-em{
+	color: #2196F3;
 }

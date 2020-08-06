@@ -25,12 +25,12 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
                 <h2>Sua carona lhe espera em:</h2>
                 {
                     (currentSR === 0) && 
-                    <h3><em>NA RUA DE</em> {landmarkName} <em>PERTO DE</em> {landmarkRef}</h3>
+                    <h3><em className="text-em">NA RUA DE</em> {landmarkName} <em className="text-em">PERTO DE</em> {landmarkRef}</h3>
                 }
 
                 {
                     (currentSR != 0) &&
-                    <h3><em>{spatialRelations[currentSR]}</em> {landmarkName}</h3>
+                    <h3><em className="text-em">{spatialRelations[currentSR]}</em> {landmarkName}</h3>
 
                 }
             </p>
