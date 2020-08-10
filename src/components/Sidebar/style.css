@@ -8,47 +8,14 @@ aside textarea{
     width: 100%;
 }
 
-.controlButtons {
-	display: flex;
-	justify-content: space-between;
-  	align-content: flex-end;
-}
-
-.reset{
-	box-shadow:inset 0px 1px 0px 0px #f7c5c0;
-	background:linear-gradient(to bottom, #fc8d83 5%, #e4685d 100%);
-	background-color:#fc8d83;
-	border-radius:6px;
-	border:1px solid #d83526;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #b23e35;
-}
-
-.reset:active {
-	position:relative;
- 	top: 1px;
-}
-
-.reset:hover {
-	background:linear-gradient(to bottom, #e4685d 5%, #fc8d83 100%);
-	background-color:#e4685d;
-}
-
-
 .next{
-  box-shadow:inset 0px 1px 0px 0px #2ecc70;
+	box-shadow:inset 0px 1px 0px 0px #2ecc70;
 	background:linear-gradient(to bottom, #2ecc70 5%, #2abd67 100%);
 	background-color:#2ecc70;
 	border-radius:6px;
 	border:1px solid #2ecc70;
 	display:inline-block;
+	width: 100%;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;

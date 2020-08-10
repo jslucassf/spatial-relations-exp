@@ -3,7 +3,7 @@ import { Map, CircleMarker, Polyline, TileLayer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import './style.css';
 
-function MapComp( { mapOptions, points, polygon, landmark } ){
+function MapComp( { mapOptions, points, polygon, landmark, reset } ){
   const [isCircleEvent, setIsCircleEvent] = useState(false);
   const {pointsArray, setPointsArray} = points;
   const {currentPolygon, setCurrentPolygon} = polygon;
@@ -87,11 +87,18 @@ function MapComp( { mapOptions, points, polygon, landmark } ){
           }
           </ul>          
 
-          <button ref={btnRef} className="btn new-geom" onClick={(e) => {
-            if(pointsArray[currentPolygon]) setCurrentPolygon(currentPolygon + 1);
-          }}>
-              Adicionar Outro Desenho
-          </button> 
+          <div className="controlButtons" ref={btnRef}>
+
+            <button className="btn new-geom" onClick={(e) => {
+              if(pointsArray[currentPolygon]) setCurrentPolygon(currentPolygon + 1);
+            }}>
+                Adicionar Outro Desenho
+            </button>
+             
+            <button className="btn reset" onClick={reset}>
+                Limpar Desenho
+            </button>
+          </div>
       </Map>        
     );
 }

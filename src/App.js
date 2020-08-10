@@ -38,6 +38,11 @@ function App() {
     setIsCircleEvent(false);
   }
 
+  const reset = () => {
+    setPointsArray([[]]);
+    setCurrentPolygon(0);
+  }
+
   return (
     <div className='container'>
       <MapComp 
@@ -47,7 +52,8 @@ function App() {
       }} 
       points= {{pointsArray,setPointsArray}}
       polygon={{currentPolygon, setCurrentPolygon}}
-      landmark={landmarks[currentLandmark]}>
+      landmark={landmarks[currentLandmark]}
+      reset={reset}>
       </MapComp>
 
       <Sidebar points={{pointsArray, setPointsArray}}
@@ -56,7 +62,7 @@ function App() {
                         landmarkName: landmarks[currentLandmark].properties.name,
                         landmarkRef: landmarks[currentLandmark].properties.ref}}
               relations={{spatialRelations, currentSR, setCurrentSR}}
-              >
+              reset={reset}>
       </Sidebar>
     </div>
      

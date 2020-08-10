@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import geomToWKT from '../../utils/GeomToWKT';
 import './style.css';
 
-function Sidebar({points, setCurrentPolygon, landmark, relations}){
+function Sidebar({points, setCurrentPolygon, landmark, relations, reset}){
     const [wkt, setWkt] = useState("");
     const {pointsArray, setPointsArray} = points;
     const {currentLandmark, setCurrentLandmark, landmarkName, landmarkRef} = landmark;
@@ -11,11 +11,6 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
     useEffect(() => {
         setWkt(geomToWKT(pointsArray));
     }, [pointsArray]);
-
-    const reset = () => {
-        setPointsArray([[]]);
-        setCurrentPolygon(0);
-    }
 
     return (
         <aside>
@@ -34,29 +29,23 @@ function Sidebar({points, setCurrentPolygon, landmark, relations}){
                 }
 
                 {
-                    (currentSR != 0) &&
+                    (currentSR !== 0) &&
                     <h3><em className="text-em">{spatialRelations[currentSR]}</em> {landmarkName}</h3>
 
                 }
             </p>
 
-            <div className="controlButtons">
-                <button className="btn reset" onClick={reset}>
-                    Limpar Desenho
-                </button>
-
-                <button className="btn next" onClick={() => {
-                    if(currentLandmark < 3){
-                        setCurrentLandmark(currentLandmark+1);
-                    }else{
-                        setCurrentLandmark(0);
-                        setCurrentSR(currentSR + 1);
-                    }
-                    reset();
-                }} disabled={currentLandmark===3 && currentSR===4}>
-                    Próxima
-                </button> 
-            </div>
+            <button className="btn next" onClick={() => {
+                if(currentLandmark < 3){
+                    setCurrentLandmark(currentLandmark+1);
+                }else{
+                    setCurrentLandmark(0);
+                    setCurrentSR(currentSR + 1);
+                }
+                reset();
+            }} disabled={currentLandmark===3 && currentSR===4}>
+                Próxima
+            </button>
         </aside>
     );
 

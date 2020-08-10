@@ -1,38 +1,63 @@
 .leaflet-container{
-    flex: 5;
-    height: 100vh;
-    cursor: auto;
-    z-index: 1;
-    position: relative;
+  flex: 5;
+  height: 100vh;
+  cursor: auto;
+  z-index: 1;
+  position: relative;
+}
+
+.controlButtons {
+  display: flex;
+  flex-direction: column;
+	justify-content: space-between;
+  align-content: flex-end;
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  z-index: 500;
+  height: 85px;
+}
+
+.btn{
+  border-radius:6px;
+  cursor:pointer;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  padding: 10px;
+}
+
+.btn:active{
+  position:relative;
+  top: 1px;
 }
 
 .new-geom {
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-    background-color:#ef5350;
-    border-radius:6px;
-    border:1px solid #dcdcdc;
-    display:inline-block;
-    cursor:pointer;
-    color:#ef5350;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #ffffff;
-    position: absolute;
-    bottom: 40px;
-    right: 20px;
-    padding: 10px;
-    z-index: 500;
-  }
-  .new-geom:hover {
-    background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-    background-color:#f6f6f6;
-  }
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+  background-color:#ef5350;
+  border:1px solid #dcdcdc;
+  color:#ef5350;
+  text-shadow:0px 1px 0px #ffffff;
+}
 
-  .new-geom:active {
-     bottom: 39px;
-     right: 20px;
+.new-geom:hover {
+  background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+  background-color:#f6f6f6;
+}
+
+.reset{
+  box-shadow:inset 0px 1px 0px 0px #f7c5c0;
+  background:linear-gradient(to bottom, #fc8d83 5%, #e4685d 100%);
+  background-color:#ef5350;
+  border: none;
+	color:#ffffff;
+  text-shadow:0px 1px 0px #b23e35;
+}
+
+.reset:hover {
+	background:linear-gradient(to bottom, #e4685d 5%, #fc8d83 100%);
+	background-color:#e4685d;
 }
