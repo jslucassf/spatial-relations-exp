@@ -1,27 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import geomToWKT from '../../utils/GeomToWKT';
+import React from 'react';
 import './style.css';
 
-function Sidebar({points, setCurrentPolygon, landmark, relations, reset}){
-    const [wkt, setWkt] = useState("");
-    const {pointsArray, setPointsArray} = points;
+function Sidebar({landmark, relations, reset}){
     const {currentLandmark, setCurrentLandmark, landmarkName, landmarkRef} = landmark;
     const {spatialRelations, currentSR, setCurrentSR} = relations;
-
-    useEffect(() => {
-        setWkt(geomToWKT(pointsArray));
-    }, [pointsArray]);
 
     return (
         <aside>
             <form>
                 <label htmlFor='wktTextField'><h2>Relações Espaciais</h2></label>
                 <textarea id='wktTextField' rows='20'
-                 placeholder='Tutorial de como desenhar vai aqui' value={wkt} readOnly>
+                 placeholder='Tutorial de como desenhar vai aqui' readOnly>
                 </textarea>
             </form>
             
-            <p>
+            
                 <h2>Sua carona lhe espera em:</h2>
                 {
                     (currentSR === 0) && 
@@ -33,7 +26,7 @@ function Sidebar({points, setCurrentPolygon, landmark, relations, reset}){
                     <h3><em className="text-em">{spatialRelations[currentSR]}</em> {landmarkName}</h3>
 
                 }
-            </p>
+            
 
             <button className="btn next" onClick={() => {
                 if(currentLandmark < 3){

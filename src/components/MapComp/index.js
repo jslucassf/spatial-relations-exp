@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Map, CircleMarker, Polyline, TileLayer, GeoJSON } from 'react-leaflet';
+import { Map, CircleMarker, Polyline, Polygon, TileLayer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import './style.css';
 
@@ -26,16 +26,6 @@ function MapComp( { mapOptions, points, polygon, landmark, reset } ){
       setIsCircleEvent(false);
   };
 
-  useEffect(() => {
-      if(pointsArray[currentPolygon].length > 1){
-        const firstPoint = pointsArray[currentPolygon][0];
-        const lastPoint = pointsArray[currentPolygon][pointsArray[currentPolygon].length - 1];
-        if (firstPoint.lat === lastPoint.lat && firstPoint.lng === lastPoint.lng)  {
-          setCurrentPolygon(currentPolygon + 1);
-        };
-      }
-    }, [pointsArray]);
-
   return (
       <Map  center={mapOptions.center} zoom={mapOptions.zoom} maxZoom={20} onclick={handleClick}>
           <TileLayer
@@ -55,11 +45,7 @@ function MapComp( { mapOptions, points, polygon, landmark, reset } ){
                   center={[point.lat, point.lng]}
                   radius={5} weight={2} color="#ef5350"
                   onclick={(e) => {
-                      if(point === pointsArray[currentPolygon][0]){
                       handleClick(e);
-                      }else{
-                      setPointsArray(pointsArray.map(polygon => polygon.filter(p => p !== point)));
-                      }
                       setIsCircleEvent(true);
                   }}
                   >
@@ -72,29 +58,41 @@ function MapComp( { mapOptions, points, polygon, landmark, reset } ){
 
           <ul>
           {
-          pointsArray.map(polygon =>
-              polygon.map((point, ind) => 
-              (polygon.length > 1) &&
-              <li key={ind}>
-              <Polyline 
-                  positions={polygon.map(point => [point.lat, point.lng])}
-                  color="#ef5350"
-                  >
-              </Polyline>
-              </li>
-              )
-          )
+            pointsArray.map((polygon, ind) =>
+              (polygon.length > 1 && ind === currentPolygon)?   
+                <li key={ind}>
+                  <Polyline 
+                    positions={polygon.map(point => [point.lat, point.lng])}
+                    color="#ef5350"
+                    >
+                  </Polyline>
+                </li> :
+                <li key={ind}>
+                  <Polygon
+                    positions={polygon.map(point => [point.lat, point.lng])}
+                    color="#ef5350"
+                    >
+                  </Polygon>
+                </li>
+            )
           }
           </ul>          
 
           <div className="controlButtons" ref={btnRef}>
-
             <button className="btn new-geom" onClick={(e) => {
-              if(pointsArray[currentPolygon]) setCurrentPolygon(currentPolygon + 1);
+              if(pointsArray[currentPolygon]) {
+                const firstPoint = pointsArray[currentPolygon][0];
+                const secondPoint = pointsArray[currentPolygon][pointsArray[currentPolygon].length - 1];
+                if(firstPoint.lat === secondPoint.lat && firstPoint.lng === secondPoint.lng){
+                  console.log("e num foi");
+                }
+                setPointsArray([...pointsArray.slice(0, -1), pointsArray.slice(-1)[0].concat(pointsArray[currentPolygon][0])]);
+                setCurrentPolygon(currentPolygon + 1);
+              }
             }}>
                 Adicionar Outro Desenho
             </button>
-             
+
             <button className="btn reset" onClick={reset}>
                 Limpar Desenho
             </button>

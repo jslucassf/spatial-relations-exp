@@ -3,7 +3,7 @@
     "type": "Feature",
     "geometry": 
         {"type": "Point", "coordinates": [-35.8793534, -7.2238664]},
-    "properties": {"id": 37534, "name": "Café Poético", "center": [-35.8793534, -7.2238664], "ref": "Bar do Cuscuz"}
+    "properties": {"id": 37534, "name": "Café Poético", "center": [-35.8793534, -7.2238664], "center_near": [-35.87854, -7.22343], "ref": "Bar do Cuscuz"}
 },
 {
     "id": 37555,
@@ -11,21 +11,21 @@
     "geometry": 
         {"type": "Point",
              "coordinates": [-35.8794862, -7.2239542]},
-    "properties": {"id": 37555, "name": "Maria Pitanga", "center": [-35.8794862, -7.2239542], "ref": "Bar do Cuscuz"}
+    "properties": {"id": 37555, "name": "Maria Pitanga", "center": [-35.8794862, -7.2239542], "center_near": [-35.87854, -7.22343], "ref": "Bar do Cuscuz"}
 },
 {
     "id": 50049,
     "type": "Feature",
     "geometry":
-        {"type": "MultiPolygon",
-            "coordinates": [[[[-35.8701925, -7.2337727], [-35.8700486, -7.2336554], [-35.869944, -7.2337816], [-35.8700879, -7.2338989], [-35.8701925, -7.2337727]]]]},
-    "properties": {"id": 50049, "name": "Niscar", "center": [-35.8701925, -7.2337727], "ref": "Posto Shopping"}
+        {"type": "Point",
+            "coordinates": [-35.87007, -7.23378]},
+    "properties": {"id": 50049, "name": "Niscar", "center": [-35.8701925, -7.2337727], "center_near": [-35.86972, -7.23395], "ref": "Posto Shopping"}
 },
 {
     "id": 50048,
     "type": "Feature",
     "geometry": 
-        {"type": "MultiPolygon",
-            "coordinates": [[[[-35.8700879, -7.2338989], [-35.869944, -7.2337816], [-35.8698919, -7.2338454], [-35.8700348, -7.2339611], [-35.8700879, -7.2338989]]]]},
-    "properties": {"id": 50048, "name": "Localiza Hertz", "center": [-35.8700879, -7.2338989], "ref": "Posto Shopping"}
+        {"type": "Point",
+            "coordinates": [-35.86999, -7.23387]},
+    "properties": {"id": 50048, "name": "Localiza Hertz", "center": [-35.8700879, -7.2338989], "center_near": [-35.86972, -7.23395], "ref": "Posto Shopping"}
 }]
