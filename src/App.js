@@ -35,6 +35,10 @@ function App() {
     setCurrentPolygon(0);
   };
 
+  const isDrawingValid = () => {
+    return !([...pointsArray].map(polygon => polygon.length > 1).includes(false));
+  }
+
   const finishGeom = ()=>{
     const resultsCopy = JSON.parse(JSON.stringify(resultGeometries));
     
@@ -83,7 +87,8 @@ function App() {
                         landmarkRef: landmarks[currentLandmark].properties.ref}}
               relations={{spatialRelations, currentSR, setCurrentSR}}
               reset={reset}
-              finishGeom={finishGeom}>
+              finishGeom={finishGeom}
+              isDrawingValid={isDrawingValid}>
       </Sidebar>
     </div>
      

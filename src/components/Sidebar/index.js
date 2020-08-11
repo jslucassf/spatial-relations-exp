@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function Sidebar({landmark, relations, reset, finishGeom}){
+function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid}){
     const {currentLandmark, setCurrentLandmark, landmarkName, landmarkRef} = landmark;
     const {spatialRelations, currentSR, setCurrentSR} = relations;
 
@@ -28,16 +28,20 @@ function Sidebar({landmark, relations, reset, finishGeom}){
             
 
             <button className="btn next" onClick={() => {
-                if(window.confirm("Você terminou o desenho?")){
-                    
-                    if(currentLandmark < 3){
-                        setCurrentLandmark(currentLandmark+1);
-                    }else{
-                        setCurrentLandmark(0);
-                        setCurrentSR(currentSR + 1);
+                if(isDrawingValid()){
+                    if(window.confirm("Você terminou o desenho?")){
+                        
+                        if(currentLandmark < 3){
+                            setCurrentLandmark(currentLandmark+1);
+                        }else{
+                            setCurrentLandmark(0);
+                            setCurrentSR(currentSR + 1);
+                        }
+                        finishGeom();
+                        reset();
                     }
-                    finishGeom();
-                    reset();
+                }else{
+                    window.alert("Desenhe clicando no mapa")
                 }
             }} disabled={currentLandmark===3 && currentSR===4}>
                 Próxima
