@@ -82,11 +82,10 @@ function MapComp( { mapOptions, points, polygon, landmark, reset } ){
             <button className="btn new-geom" onClick={(e) => {
               if(pointsArray[currentPolygon]) {
                 const firstPoint = pointsArray[currentPolygon][0];
-                const secondPoint = pointsArray[currentPolygon][pointsArray[currentPolygon].length - 1];
-                if(firstPoint.lat === secondPoint.lat && firstPoint.lng === secondPoint.lng){
-                  console.log("e num foi");
+                const lastPoint = pointsArray[currentPolygon][pointsArray[currentPolygon].length - 1];
+                if(!(firstPoint.lat === lastPoint.lat && firstPoint.lng === lastPoint.lng)){
+                  setPointsArray([...pointsArray.slice(0, -1), pointsArray.slice(-1)[0].concat(pointsArray[currentPolygon][0])]);
                 }
-                setPointsArray([...pointsArray.slice(0, -1), pointsArray.slice(-1)[0].concat(pointsArray[currentPolygon][0])]);
                 setCurrentPolygon(currentPolygon + 1);
               }
             }}>

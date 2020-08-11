@@ -1,6 +1,7 @@
 aside{
   flex: 1;
-  padding: 2%;;
+  padding: 2%;
+  color: #34495e;
 }
   
 aside textarea{

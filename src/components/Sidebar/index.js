@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function Sidebar({landmark, relations, reset}){
+function Sidebar({landmark, relations, reset, finishGeom}){
     const {currentLandmark, setCurrentLandmark, landmarkName, landmarkRef} = landmark;
     const {spatialRelations, currentSR, setCurrentSR} = relations;
 
@@ -24,18 +24,21 @@ function Sidebar({landmark, relations, reset}){
                 {
                     (currentSR !== 0) &&
                     <h3><em className="text-em">{spatialRelations[currentSR]}</em> {landmarkName}</h3>
-
                 }
             
 
             <button className="btn next" onClick={() => {
-                if(currentLandmark < 3){
-                    setCurrentLandmark(currentLandmark+1);
-                }else{
-                    setCurrentLandmark(0);
-                    setCurrentSR(currentSR + 1);
+                if(window.confirm("Você terminou o desenho?")){
+                    
+                    if(currentLandmark < 3){
+                        setCurrentLandmark(currentLandmark+1);
+                    }else{
+                        setCurrentLandmark(0);
+                        setCurrentSR(currentSR + 1);
+                    }
+                    finishGeom();
+                    reset();
                 }
-                reset();
             }} disabled={currentLandmark===3 && currentSR===4}>
                 Próxima
             </button>

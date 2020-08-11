@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MapComp from './components/MapComp';
 import Sidebar from './components/Sidebar';
+import ThankYou from './components/ThankYou';
 import data from './data/landmarks.json';
+import CloseGeometryRings from './utils/CloseGeometryRings';
 
 function App() {
   const [centralPoint, setCentralPoint] = useState([ -7.2238664, -35.8793534 ]);
@@ -18,6 +20,7 @@ function App() {
     "ENTRE"
   ]);
   const [currentSR, setCurrentSR] = useState(0);
+  const [resultGeometries, setResultGeometries] = useState({rua_perto: [], frente: [], direita: [], lado: [], entre: []});
 
   useEffect(() => {
     if(currentSR === 0){
@@ -30,10 +33,38 @@ function App() {
   const reset = () => {
     setPointsArray([[]]);
     setCurrentPolygon(0);
-  }
+  };
+
+  const finishGeom = ()=>{
+    const resultsCopy = JSON.parse(JSON.stringify(resultGeometries));
+    
+    const closedGeoms = CloseGeometryRings(pointsArray);
+    switch(currentSR){
+      case 0:
+      resultsCopy.rua_perto.push(closedGeoms);
+      break;
+      case 1: 
+      resultsCopy.frente.push(closedGeoms);
+      break;
+      case 2: 
+      resultsCopy.direita.push(closedGeoms);
+      break;
+      case 3: 
+      resultsCopy.lado.push(closedGeoms);
+      break;
+      case 4: 
+      resultsCopy.entre.push(closedGeoms);
+      break;
+      default:
+        break;
+    }
+    setResultGeometries(resultsCopy);
+  };
 
   return (
     <div className='container'>
+      {false ?
+      <ThankYou></ThankYou> : 
       <MapComp 
       mapOptions = {{
         center: centralPoint,//[-7.2281, -35.8739],
@@ -44,13 +75,15 @@ function App() {
       landmark={landmarks[currentLandmark]}
       reset={reset}>
       </MapComp>
+      }
 
       <Sidebar
               landmark={{currentLandmark, setCurrentLandmark, 
                         landmarkName: landmarks[currentLandmark].properties.name,
                         landmarkRef: landmarks[currentLandmark].properties.ref}}
               relations={{spatialRelations, currentSR, setCurrentSR}}
-              reset={reset}>
+              reset={reset}
+              finishGeom={finishGeom}>
       </Sidebar>
     </div>
      
