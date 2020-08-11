@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
 
-function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid}){
-    const {currentLandmark, setCurrentLandmark, landmarkName, landmarkRef} = landmark;
+function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid, setExperimentFinished}){
+    const {currentLandmark, setCurrentLandmark, landmarkName, landmarkNearRef, landmarkBetweenRef} = landmark;
     const {spatialRelations, currentSR, setCurrentSR} = relations;
 
     return (
@@ -18,11 +18,16 @@ function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid}){
                 <h2>Sua carona lhe espera em:</h2>
                 {
                     (currentSR === 0) && 
-                    <h3><em className="text-em">NA RUA DE</em> {landmarkName} <em className="text-em">PERTO DE</em> {landmarkRef}</h3>
+                    <h3><em className="text-em">NA RUA DE</em> {landmarkName}, <em className="text-em">PERTO DE</em> {landmarkNearRef}</h3>
                 }
 
                 {
-                    (currentSR !== 0) &&
+                    (currentSR === 4) &&
+                    <h3><em className="text-em">ENTRE </em> {landmarkName} <em className="text-em">E</em> {landmarkBetweenRef}</h3>
+                }
+
+                {
+                    (currentSR === 1 || currentSR === 2 || currentSR === 3) &&
                     <h3><em className="text-em">{spatialRelations[currentSR]}</em> {landmarkName}</h3>
                 }
             
@@ -38,12 +43,17 @@ function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid}){
                             setCurrentSR(currentSR + 1);
                         }
                         finishGeom();
+                    
+                        if(currentLandmark === 3 && currentSR === 4){
+                            setExperimentFinished(true);
+                        }
+
                         reset();
                     }
                 }else{
                     window.alert("Desenhe clicando no mapa")
                 }
-            }} disabled={currentLandmark===3 && currentSR===4}>
+            }} disabled={currentLandmark===4 && currentSR===4}>
                 Próxima
             </button>
         </aside>

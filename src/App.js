@@ -21,11 +21,15 @@ function App() {
   ]);
   const [currentSR, setCurrentSR] = useState(0);
   const [resultGeometries, setResultGeometries] = useState({rua_perto: [], frente: [], direita: [], lado: [], entre: []});
+  const [experimentFinished, setExperimentFinished] = useState(false);
 
   useEffect(() => {
     if(currentSR === 0){
       setCentralPoint(landmarks[currentLandmark].properties.center_near.slice().reverse());
-    }else{
+    }else if(currentSR === 4){
+      setCentralPoint(landmarks[currentLandmark].properties.center_between.slice().reverse());
+    }
+    else{
       setCentralPoint(landmarks[currentLandmark].properties.center.slice().reverse());
     }
   }, [currentLandmark]);
@@ -67,7 +71,7 @@ function App() {
 
   return (
     <div className='container'>
-      {false ?
+      {experimentFinished ?
       <ThankYou></ThankYou> : 
       <MapComp 
       mapOptions = {{
@@ -84,11 +88,13 @@ function App() {
       <Sidebar
               landmark={{currentLandmark, setCurrentLandmark, 
                         landmarkName: landmarks[currentLandmark].properties.name,
-                        landmarkRef: landmarks[currentLandmark].properties.ref}}
+                        landmarkNearRef: landmarks[currentLandmark].properties.ref,
+                        landmarkBetweenRef: landmarks[currentLandmark].properties.ref_between}}
               relations={{spatialRelations, currentSR, setCurrentSR}}
               reset={reset}
               finishGeom={finishGeom}
-              isDrawingValid={isDrawingValid}>
+              isDrawingValid={isDrawingValid}
+              setExperimentFinished={setExperimentFinished}>
       </Sidebar>
     </div>
      
