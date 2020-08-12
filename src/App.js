@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
+import Instructions from './components/Instructions';
 import MapComp from './components/MapComp';
 import Sidebar from './components/Sidebar';
 import ThankYou from './components/ThankYou';
@@ -21,7 +23,18 @@ function App() {
   ]);
   const [currentSR, setCurrentSR] = useState(0);
   const [resultGeometries, setResultGeometries] = useState({rua_perto: [], frente: [], direita: [], lado: [], entre: []});
-  const [experimentFinished, setExperimentFinished] = useState(false);
+  const [appState, setAppState] = useState("tutorial");
+  const [userID, setUserID] = useState();
+
+  useEffect(() => {
+    async function touchApi(){
+      const resp = await axios.get("http://localhost:3003/next-id");
+      setUserID(resp.data.id);
+    }
+
+    touchApi();
+
+  }, [])
 
   useEffect(() => {
     if(currentSR === 0){
@@ -43,7 +56,7 @@ function App() {
     return !([...pointsArray].map(polygon => polygon.length > 1).includes(false));
   }
 
-  const finishGeom = ()=>{
+  const  finishGeom = async () =>{
     const resultsCopy = JSON.parse(JSON.stringify(resultGeometries));
     
     const closedGeoms = CloseGeometryRings(pointsArray);
@@ -66,36 +79,57 @@ function App() {
       default:
         break;
     }
+    const drawing = {
+      "userID": userID,
+      "relation": spatialRelations[currentSR],
+      "landmark": landmarks[currentLandmark].properties.name,
+      "geometry": {
+        "type": (pointsArray.length > 1) ? "MultiPolygon" : "Polygon",
+        "coordinates": pointsArray
+      }
+    }
+
+    await axios.post("http://localhost:3003/saveDrawing", drawing);
     setResultGeometries(resultsCopy);
   };
 
   return (
     <div className='container'>
-      {experimentFinished ?
-      <ThankYou></ThankYou> : 
-      <MapComp 
-      mapOptions = {{
-        center: centralPoint,//[-7.2281, -35.8739],
-        zoom:19.4
-      }} 
-      points= {{pointsArray,setPointsArray}}
-      polygon={{currentPolygon, setCurrentPolygon}}
-      landmark={landmarks[currentLandmark]}
-      reset={reset}>
-      </MapComp>
+      {
+        appState === "tutorial" &&
+        <Instructions setAppState={setAppState}></Instructions>
       }
-
-      <Sidebar
-              landmark={{currentLandmark, setCurrentLandmark, 
-                        landmarkName: landmarks[currentLandmark].properties.name,
-                        landmarkNearRef: landmarks[currentLandmark].properties.ref,
-                        landmarkBetweenRef: landmarks[currentLandmark].properties.ref_between}}
-              relations={{spatialRelations, currentSR, setCurrentSR}}
-              reset={reset}
-              finishGeom={finishGeom}
-              isDrawingValid={isDrawingValid}
-              setExperimentFinished={setExperimentFinished}>
-      </Sidebar>
+      {
+        appState === 'initialized' &&
+        <MapComp 
+          mapOptions = {{
+            center: centralPoint,//[-7.2281, -35.8739],
+            zoom:19.4
+          }} 
+          points= {{pointsArray,setPointsArray}}
+          polygon={{currentPolygon, setCurrentPolygon}}
+          landmark={landmarks[currentLandmark]}
+          reset={reset}>
+        </MapComp>
+      }
+      {
+        appState === 'finished' &&
+        <ThankYou></ThankYou>
+      }
+      {
+        (appState === 'initialized' || appState === 'finished') &&
+        <Sidebar
+          landmark={{currentLandmark, setCurrentLandmark, 
+                    landmarkName: landmarks[currentLandmark].properties.name,
+                    landmarkNearRef: landmarks[currentLandmark].properties.ref,
+                    landmarkBetweenRef: landmarks[currentLandmark].properties.ref_between}}
+          relations={{spatialRelations, currentSR, setCurrentSR}}
+          reset={reset}
+          finishGeom={finishGeom}
+          isDrawingValid={isDrawingValid}
+          setAppState={setAppState}>
+        </Sidebar>
+      }
     </div>
      
   );

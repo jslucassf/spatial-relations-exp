@@ -2,6 +2,8 @@ aside{
   flex: 1;
   padding: 2%;
   color: #34495e;
+  display: flex;
+  flex-direction: column;
 }
   
 aside textarea{
@@ -38,4 +40,17 @@ aside textarea{
 
 .text-em{
 	color: #2196F3;
+}
+
+.instructionsText{
+	color: #34495e;
+}
+
+#instructions{
+    background-color: #ecf0f1;
+	padding: 20px;
+}
+
+#sentence{
+	margin-top: auto;
 }
