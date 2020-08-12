@@ -8,11 +8,11 @@ import './style.css';
 function Instructions({setAppState}) {
     return (
     <div className="mainContainer">
-        <div className="instructionsText">
-            <h2>Obrigado por participar deste experimento!</h2>
-            <p>Imagine o seguinte cenário: Você está em algum lugar e um amigo em um carro vai lhe dar carona.
-                 Ele lhe diz que está <strong style={{color: "#2196F3"}}>na frente</strong> do lugar que você está. Onde você acha que ele pode estar? <br></br>
-                 Pedimos que desenhe no mapa a área que acha provável que sua carona esteja, de acordo com a frase que o descreve.</p>
+        <div className="startingText">
+            <div className="instructionsText">
+                <h3>Imagine que um amigo vai lhe dar carona e lhe diz que está <strong style={{color: "#2196F3"}}>na frente</strong> do lugar que você está. <br></br>
+                    Pedimos que desenhe no mapa a área que acha provável que sua carona esteja, de acordo com a descrição.</h3>
+            </div>
         </div>
         <div className="instructionsContainer">
             <div>
@@ -25,7 +25,7 @@ function Instructions({setAppState}) {
             </div>
             <div>
                 <h3 className="instructionsText">3. Se precisar desenhar mais de uma forma, clique em 'Adicionar outro desenho'
-                    quando tiver terminado o primeiro e continue desenhando</h3>
+                    quando tiver terminado a primeira e continue</h3>
                 <img src={MultiPolygonGif} alt="Adicionar outro desenho permite que desenhe mais formas"/>
             </div>
             <div>
