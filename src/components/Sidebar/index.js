@@ -14,7 +14,6 @@ function Sidebar({landmark, relations, reset, finishGeom, isDrawingValid, setApp
                 <p className="instructionsText">3. Se precisar desenhar mais de uma forma, clique em 'Adicionar outro desenho'
                     quando tiver terminado a primeira e continue</p>
                 <p className="instructionsText">4. Terminou? Apenas clique em 'Próxima'</p>
-                
             </div>
             
             <div id="sentence">

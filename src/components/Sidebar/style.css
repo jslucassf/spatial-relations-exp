@@ -6,10 +6,6 @@ aside{
   flex-direction: column;
 }
   
-aside textarea{
-    margin-top: 20px;
-    width: 100%;
-}
 
 .next{
 	box-shadow:inset 0px 1px 0px 0px #2ecc70;
@@ -47,10 +43,23 @@ aside textarea{
 }
 
 #instructions{
-    background-color: #ecf0f1;
+	background-color: #ecf0f1;
 	padding: 20px;
+}
+
+@media only screen and (max-width: 1500px) {
+	#instructions{
+		font-size: small;
+		padding: 5px;
+	}
 }
 
 #sentence{
 	margin-top: auto;
+}
+
+@media only screen and (max-width: 1300px) {
+	#sentence{
+		font-size: small;
+	}
 }
