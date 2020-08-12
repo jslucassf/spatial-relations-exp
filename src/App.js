@@ -22,7 +22,6 @@ function App() {
     "ENTRE"
   ]);
   const [currentSR, setCurrentSR] = useState(0);
-  const [resultGeometries, setResultGeometries] = useState({rua_perto: [], frente: [], direita: [], lado: [], entre: []});
   const [appState, setAppState] = useState("tutorial");
   const [userID, setUserID] = useState();
 
@@ -57,40 +56,19 @@ function App() {
   }
 
   const  finishGeom = async () =>{
-    const resultsCopy = JSON.parse(JSON.stringify(resultGeometries));
-    
     const closedGeoms = CloseGeometryRings(pointsArray);
-    switch(currentSR){
-      case 0:
-      resultsCopy.rua_perto.push(closedGeoms);
-      break;
-      case 1: 
-      resultsCopy.frente.push(closedGeoms);
-      break;
-      case 2: 
-      resultsCopy.direita.push(closedGeoms);
-      break;
-      case 3: 
-      resultsCopy.lado.push(closedGeoms);
-      break;
-      case 4: 
-      resultsCopy.entre.push(closedGeoms);
-      break;
-      default:
-        break;
-    }
+
     const drawing = {
       "userID": userID,
       "relation": spatialRelations[currentSR],
       "landmark": landmarks[currentLandmark].properties.name,
       "geometry": {
         "type": (pointsArray.length > 1) ? "MultiPolygon" : "Polygon",
-        "coordinates": pointsArray
+        "coordinates": closedGeoms
       }
     }
 
     await axios.post("https://sr-exp-api.herokuapp.com/saveDrawing", drawing);
-    setResultGeometries(resultsCopy);
   };
 
   return (
