@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     async function touchApi(){
-      const resp = await axios.get("http://localhost:3003/next-id");
+      const resp = await axios.get("https://sr-exp-api.herokuapp.com/next-id");
       setUserID(resp.data.id);
     }
 
@@ -89,7 +89,7 @@ function App() {
       }
     }
 
-    await axios.post("http://localhost:3003/saveDrawing", drawing);
+    await axios.post("https://sr-exp-api.herokuapp.com/saveDrawing", drawing);
     setResultGeometries(resultsCopy);
   };
 
