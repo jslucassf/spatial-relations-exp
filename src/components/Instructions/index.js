@@ -10,8 +10,8 @@ function Instructions({setAppState}) {
     <div className="mainContainer">
         <div className="startingText">
             <div className="instructionsText">
-                <h3>Imagine que um amigo vai lhe dar carona e lhe diz que está <strong style={{color: "#2196F3"}}>na frente</strong> do lugar que você está. <br></br>
-                    Pedimos que desenhe no mapa a área que acha provável que sua carona esteja, de acordo com a descrição.</h3>
+                <h3>Imagine que um amigo vai lhe dar carona e lhe diz por telefone onde parou o carro para te esperar. <br></br>
+                    Com base na descrição que ele passou, pedimos que desenhe no mapa a área onde acha possível que sua carona esteja.</h3>
             </div>
         </div>
         <div className="instructionsContainer">
