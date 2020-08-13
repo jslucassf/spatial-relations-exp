@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import ThankYou from './components/ThankYou';
 import data from './data/landmarks.json';
 import CloseGeometryRings from './utils/CloseGeometryRings';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [centralPoint, setCentralPoint] = useState([ -7.2238664, -35.8793534 ]);
@@ -27,8 +28,7 @@ function App() {
 
   useEffect(() => {
     async function touchApi(){
-      const resp = await axios.get("https://sr-exp-api.herokuapp.com/next-id");
-      setUserID(resp.data.id);
+      setUserID(uuidv4());
     }
 
     touchApi();
